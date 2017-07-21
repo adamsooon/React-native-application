@@ -3,6 +3,7 @@ import { StackNavigator, DrawerNavigator } from 'react-navigation';
 import HomePageDocument from './views/HomePageDocument';
 import ContactDocument from './views/ContactDocument';
 import ContestDocument from './views/ContestDocument';
+import CameraDocument from './views/CameraDocument';
 import MenuHeader from './components/MenuHeader'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -73,6 +74,12 @@ const Router = DrawerNavigator({
 const StacksOverTabs = StackNavigator({
   Root: {
     screen: Router,
+  },
+  Camera: {
+    screen: CameraDocument,
+    navigationOptions: {
+      title: 'Camera',
+    },
   },
 });
 

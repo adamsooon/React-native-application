@@ -2,7 +2,6 @@ import React from 'react';
 import { Text, View, ScrollView, StyleSheet, Platform, CameraRoll, Modal, TouchableHighlight, Image, Dimensions } from 'react-native';
 import Button from 'apsl-react-native-button';
 import ModalStyles from '../components/common/modal/modalStyles';
-import Camera from 'react-native-camera';
 
 const { width } = Dimensions.get('window');
 
@@ -40,25 +39,10 @@ export default class ContestDocument extends React.Component {
     this.setIndex(i);
   };
 
-  takePicture = () => {
-    const options = {};
-    //options.location = ...
-    this.camera.capture({metadata: options})
-      .then((data) => console.log(data))
-      .catch(err => console.error(err));
-  };
-
   render() {
+    const { navigate } = this.props.navigation;
     return (
       <ScrollView style={styles.container}>
-        {/*<Camera*/}
-          {/*ref={(cam) => {*/}
-            {/*this.camera = cam;*/}
-          {/*}}*/}
-          {/*style={styles.preview}*/}
-          {/*aspect={Camera.constants.Aspect.fill}>*/}
-          {/*<Text style={styles.capture} onPress={this.takePicture}>[CAPTURE]</Text>*/}
-        {/*</Camera>*/}
         <Text
           style={{ marginBottom: 20}}
         >
@@ -70,7 +54,16 @@ export default class ContestDocument extends React.Component {
           style={{ borderColor: '#26dd70' }}
           textStyle={{ color:'#26dd70' }}
         >
-          Browse photo
+          Browse photos
+        </Button>
+        <Button
+          onPress={() =>
+            navigate('Camera')
+          }
+          style={{ borderColor: '#26dd70' }}
+          textStyle={{ color:'#26dd70' }}
+        >
+          Take a photo
         </Button>
 
         <Modal
@@ -133,18 +126,5 @@ const styles = StyleSheet.create({
   modalContainer: {
     paddingTop: 20,
     flex: 1
-  },
-  preview: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center'
-  },
-  capture: {
-    flex: 0,
-    backgroundColor: '#fff',
-    borderRadius: 5,
-    color: '#000',
-    padding: 10,
-    margin: 40
   },
 });
