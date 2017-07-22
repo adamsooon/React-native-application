@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import Button from 'apsl-react-native-button';
 import Camera from 'react-native-camera';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 export default class CameraDocument extends React.Component {
 
@@ -33,7 +34,11 @@ export default class CameraDocument extends React.Component {
             style={{ borderColor: '#26dd70' }}
             textStyle={{ color:'#26dd70' }}
           >
-            Take a photo
+            <MaterialIcons
+              name={'camera'}
+              size={26}
+              style={{ color: '#26dd70', backgroundColor: 'black' }}
+            />
           </Button>
         </Camera>
       </View>

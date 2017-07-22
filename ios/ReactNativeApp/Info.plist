@@ -27,9 +27,9 @@
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>DAJ KAMERE</string>
-  <key>NSCameraUsageDescription</key>
-  <string>Your message to user when the camera is accessed for the first time</string>
+	<string>Application needs your permision to show camera roll</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Application needs your permision to use camera</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
@@ -43,7 +43,7 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string></string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>
