@@ -39,7 +39,7 @@ export default class InputBox extends React.Component {
     this.input.focus();
   };
 
-  onInputFocuse = () => {
+  onInputFocus = () => {
     this.setState({
       isFocusing: this.input.isFocused(),
     });
@@ -68,8 +68,8 @@ export default class InputBox extends React.Component {
             inputIsInvalid: this.props.isInvalid,
           }), this.props.extraStyles]}
           onChangeText={this.props.onChangeText}
-          onFocus={this.onInputFocuse}
-          onBlur={this.onInputFocuse}
+          onFocus={this.onInputFocus}
+          onBlur={this.onInputFocus}
         />
         {this.props.children}
       </View>
