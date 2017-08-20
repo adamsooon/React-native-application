@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, ScrollView, StyleSheet, Platform, Animated } from 'react-native';
 import ContactForm from '../components/forms/ContactForm';
-import MapView from 'react-native-maps';
+// import MapView from 'react-native-maps';
 
 export default class ContactDocument extends React.Component {
 
@@ -14,16 +14,16 @@ export default class ContactDocument extends React.Component {
         latitudeDelta: 0.0122,
         longitudeDelta: 0.0121,
       },
-      userPosition: new MapView.AnimatedRegion({
+      /* userPosition: new MapView.AnimatedRegion({
         latitude: 0,
         longitude: 0,
-      }),
+      }), */
       errorGet: null,
       errorWatch: null,
     };
   }
 
-  componentDidMount() {
+  /* componentDidMount() {
     this.handleInitialPosition();
     this.watchId = navigator.geolocation.watchPosition(
       (position) => {
@@ -69,27 +69,27 @@ export default class ContactDocument extends React.Component {
     );
   };
 
+  */
+
   onRegionChange = (region) => {
     this.setState({ region });
   };
 
   render() {
-    // const { navigation } = this.props;
     return (
       <ScrollView style={styles.container}>
         <Text
           style={{ marginBottom: 20}}
         >
-          {this.state.region.latitudeDelta}
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aperiam beatae doloribus eligendi quisquam? Blanditiis consequatur eius excepturi in recusandaed.
         </Text>
-        <MapView
+        {/* <MapView
           region={this.state.region}
           style={{ width: '100%', height: 200, marginBottom: 20}}
           onRegionChange={this.onRegionChange}
         >
           <MapView.Marker.Animated coordinate={this.state.userPosition} />
-        </MapView>
+        </MapView> */}
         <ContactForm />
       </ScrollView>
     );

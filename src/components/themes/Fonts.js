@@ -5,10 +5,10 @@ const type = {
 };
 
 const size = {
-  title: 18,
-  input: 16,
   small: 12,
   regular: 14,
+  regularPlus: 16,
+  title: 18,
 };
 
 const style = {
@@ -20,14 +20,19 @@ const style = {
     fontFamily: type.base,
     fontSize: size.regular,
   },
-  title: {
+  labelText: {
     fontFamily: type.base,
-    fontSize: size.title,
+    fontSize: size.regular,
     fontWeight: 'bold',
   },
   input: {
     fontFamily: type.base,
-    fontSize: size.input,
+    fontSize: size.regularPlus,
+  },
+  headerText: {
+    fontFamily: type.base,
+    fontSize: size.title,
+    fontWeight: 'bold',
   },
 };
 

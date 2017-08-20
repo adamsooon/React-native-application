@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import Button from 'apsl-react-native-button';
+import { View, StyleSheet, TouchableHighlight } from 'react-native';
 import Camera from 'react-native-camera';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
@@ -29,17 +28,16 @@ export default class CameraDocument extends React.Component {
           }}
           style={styles.preview}
           aspect={Camera.constants.Aspect.fill}>
-          <Button
+          <TouchableHighlight
             onPress={this.takePicture}
-            style={{ borderColor: '#26dd70' }}
-            textStyle={{ color:'#26dd70' }}
+            style={{ marginBottom: 30}}
           >
             <MaterialIcons
               name={'camera'}
-              size={26}
+              size={35}
               style={{ color: '#26dd70', backgroundColor: 'black' }}
             />
-          </Button>
+          </TouchableHighlight>
         </Camera>
       </View>
     );

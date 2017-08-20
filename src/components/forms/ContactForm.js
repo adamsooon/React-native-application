@@ -1,12 +1,14 @@
 import React, { PropTypes } from 'react';
-import { Text, View, TextInput } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import Button from 'apsl-react-native-button'
+import InputBox from './InputBox'
 import isNameFormatValid from './isNameFormatValid'
 import isEmailFormatValid from './isEmailFormatValid'
 import isPhoneFormatValid from './isPhoneFormatValid'
 import ContactFormStyles from './ContactFormStyles'
 import createSelector from 'react-native-conditional-stylesheet';
 import isEmpty from 'lodash/isEmpty';
+import Variables from '../themes/Variables';
 
 function isFormValid(state) {
   return isNameFormatValid(state.name)
@@ -78,6 +80,12 @@ export default class ContactForm extends React.Component {
     }
   };
 
+  isFocused = () => {
+    this.setState({
+      isFocusing: this.input.isFocused(),
+    });
+  };
+
   // callToApi = () => {
   //   const formData = new FormData();
   //   formData.append('base64file', res);
@@ -105,14 +113,12 @@ export default class ContactForm extends React.Component {
       <View style={{ flex: 1 }}>
         {!this.state.isSent ? (
           <View>
-            <View style={ContactFormStyles.formInputConteiner}>
-              <TextInput
-                placeholder="Name"
-                style={classNames('formInput', {
-                  inputIsInvalid: !isNameFormatValid(this.state.name) && this.state.isSubmitted,
-                })}
-                onChangeText={this.handleName}
-              />
+            <InputBox
+              isInvalid={!isNameFormatValid(this.state.name) && this.state.isSubmitted}
+              onChangeText={this.handleName}
+              label="Name"
+              value={this.state.name}
+            >
               {isEmpty(this.state.name) && this.state.isSubmitted && (
                 <Text style={ContactFormStyles.formError}>This field is required.</Text>
               )}
@@ -122,15 +128,13 @@ export default class ContactForm extends React.Component {
                   Please provide your name. It can contain at least 3 letters
                 </Text>
               )}
-            </View>
-            <View style={ContactFormStyles.formInputConteiner}>
-              <TextInput
-                placeholder="Surname"
-                style={classNames('formInput', {
-                  inputIsInvalid: !isNameFormatValid(this.state.surname) && this.state.isSubmitted,
-                })}
-                onChangeText={this.handleSurname}
-              />
+            </InputBox>
+            <InputBox
+              isInvalid={!isNameFormatValid(this.state.surname) && this.state.isSubmitted}
+              onChangeText={this.handleSurname}
+              label="Surname"
+              value={this.state.surname}
+            >
               {isEmpty(this.state.surname) && this.state.isSubmitted && (
                 <Text style={ContactFormStyles.formError}>This field is required.</Text>
               )}
@@ -140,34 +144,29 @@ export default class ContactForm extends React.Component {
                   Please provide your surname. It can contain at least 3 letters
                 </Text>
               )}
-            </View>
-            <View style={ContactFormStyles.formInputConteiner}>
-              <TextInput
-                placeholder="E-mail"
-                style={classNames('formInput', {
-                  inputIsInvalid: !isEmailFormatValid(this.state.email) && this.state.isSubmitted,
-                })}
-                onChangeText={this.handleEmail}
-                value={this.state.text}
-              />
+            </InputBox>
+            <InputBox
+              isInvalid={!isEmailFormatValid(this.state.email) && this.state.isSubmitted}
+              onChangeText={this.handleEmail}
+              label="E-mail"
+              value={this.state.email}
+            >
               {isEmpty(this.state.email) && this.state.isSubmitted && (
                 <Text style={ContactFormStyles.formError}>This field is required.</Text>
               )}
               {!isEmpty(this.state.email) && !isEmailFormatValid(this.state.email)
-               && this.state.isSubmitted && (
+              && this.state.isSubmitted && (
                 <Text style={ContactFormStyles.formError}>
                   Please provide a valid e-mail address to be sure that we will answer you. This field is required.
                 </Text>
               )}
-            </View>
-            <View style={ContactFormStyles.formInputConteiner}>
-              <TextInput
-                placeholder="Phone number"
-                style={classNames('formInput', {
-                  inputIsInvalid: !isPhoneFormatValid(this.state.phone) && this.state.isSubmitted,
-                })}
-                onChangeText={this.handlePhone}
-              />
+            </InputBox>
+            <InputBox
+              isInvalid={!isPhoneFormatValid(this.state.phone) && this.state.isSubmitted}
+              onChangeText={this.handlePhone}
+              label="Phone number"
+              value={this.state.phone}
+            >
               {isEmpty(this.state.phone) && this.state.isSubmitted && (
                 <Text style={ContactFormStyles.formError}>This field is required.</Text>
               )}
@@ -178,37 +177,35 @@ export default class ContactForm extends React.Component {
                   and below signs: (), +, -.
                 </Text>
               )}
-            </View>
-            <View style={ContactFormStyles.formInputConteiner}>
-              <TextInput
-                placeholder="Message"
-                style={classNames('formInput', 'formMessageInput', {
-                  inputIsInvalid: (isEmpty(this.state.message)
+            </InputBox>
+            <InputBox
+              extraStyles={StyleSheet.flatten(ContactFormStyles.formMessageInput)}
+              isInvalid={(isEmpty(this.state.message) || this.state.message.length > 255)
+                && this.state.isSubmitted}
+              onChangeText={this.handleMessage}
+              label="Message"
+              multiline = {true}
+              numberOfLines = {4}
+              value={this.state.message}
+            >
+              <Text
+                style={[classNames({
+                  formError: (isEmpty(this.state.message)
                   || this.state.message.length > 255)
                   && this.state.isSubmitted,
-                })}
-                onChangeText={this.handleMessage}
-                multiline = {true}
-                numberOfLines = {4}
-              />
-                <Text
-                  style={[classNames({
-                    formError: (isEmpty(this.state.message)
-                    || this.state.message.length > 255)
-                    && this.state.isSubmitted,
-                  }), { textAlign: 'right' }]}
-                >
-                  {this.state.message.length}/255
-                </Text>
+                }), ContactFormStyles.counterText ]}
+              >
+                {this.state.message.length}/255
+              </Text>
               {isEmpty(this.state.message) && this.state.isSubmitted && (
                 <Text style={ContactFormStyles.formError}>This field is required.</Text>
               )}
-            </View>
+            </InputBox>
             <Button
               onPress={this.onSubmit}
               isLoading={this.state.isSending}
-              style={{ borderColor: '#26dd70' }}
-              textStyle={{ color:'#26dd70' }}
+              style={{ borderColor: Variables.colors.green }}
+              textStyle={{ color: Variables.colors.green }}
             >
               Send
             </Button>
